@@ -1,9 +1,9 @@
-﻿using HackerNews.Domain.Interfaces;
+﻿using HackerNews.Domain.Enums;
+using HackerNews.Domain.Interfaces;
 using HackerNews.Domain.Models.HackerNews;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HackerNews.Data.Services
 {
-    public class HackerNewsService : IHackerNewsService
+    public class HackerNewsService : INewsService
     {
         private readonly HttpClient _httpClient;
         private readonly HackerNewsConfig _hackerNewsConfig;
@@ -44,27 +44,27 @@ namespace HackerNews.Data.Services
             return maxItemId;
         }
 
-        public async Task<IEnumerable<NewsArticle>> GetNews(int startId, int count)
+        public async Task<IEnumerable<HackerNewsItem>> GetStories(int startId, int count)
         {
             count = count == default ? _hackerNewsConfig.DefaultArticleCount : count;
+            count += 50;
             startId = startId == default ? await GetMaxItemId() : startId;
 
-            var tasks = new List<Task<NewsArticle>>();
+            var tasks = new List<Task<HackerNewsItem>>();
 
             for(int id = startId; id >= startId - count; id--)
             {
-                
-                var task = GetNewsArticle(id);
+                var task = GetHackerNewsItem(id);
 
                 tasks.Add(task);
             }
 
             var articles = await Task.WhenAll(tasks);
 
-            return articles.Where(x => x != null);
+            return articles.Where(x => x != null && x.Type == NewsType.story.ToString() && x.IsDeleted == false).Take(count);
         }
 
-        private async Task<NewsArticle> GetNewsArticle(int id)
+        private async Task<HackerNewsItem> GetHackerNewsItem(int id)
         {
             var url = string.Format(ItemPath, id);
             var response = await _httpClient.GetAsync(url);
@@ -76,7 +76,7 @@ namespace HackerNews.Data.Services
 
             var articleString = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<NewsArticle>(articleString);
+            return JsonSerializer.Deserialize<HackerNewsItem>(articleString);
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using HackerNews.Domain.Models.HackerNews;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HackerNews.Domain.Interfaces
 {
-    public interface IHackerNewsService
+    public interface INewsService
     {
-        Task<IEnumerable<NewsArticle>> GetNews(int startId, int count);
+        Task<IEnumerable<HackerNewsItem>> GetStories(int startId, int count);
     }
 }

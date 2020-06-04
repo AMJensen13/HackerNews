@@ -1,0 +1,21 @@
+<h1 id="tableLabel">Latest Stories</h1>
+
+<p *ngIf="!stories"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="stories">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let story of stories">
+      <td *ngIf="story.url"><a href="{{story.url}}" target="_blank">{{ story.title }}</a></td>
+      <td *ngIf="!story.url">{{ story.title }}</td>
+      <td>{{ story.by }}</td>
+    </tr>
+  </tbody>
+</table>
+
+

@@ -1,11 +1,13 @@
 using HackerNews.Data.Services;
 using HackerNews.Domain.Interfaces;
+using HackerNews.Domain.Models.HackerNews;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json.Serialization;
 
 namespace HackerNews
 {
@@ -20,14 +22,19 @@ namespace HackerNews
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
+            services.AddControllersWithViews()
+                    .AddJsonOptions(options =>
+                    {
+                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    });
+            
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddHttpClient<IHackerNewsService, HackerNewsService>();
+            services.Configure<HackerNewsConfig>(Configuration.GetSection("HackerNewsConfig"));
+            services.AddHttpClient<INewsService, HackerNewsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,7 +48,7 @@ namespace HackerNews
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
