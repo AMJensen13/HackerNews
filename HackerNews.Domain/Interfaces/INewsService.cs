@@ -6,6 +6,6 @@ namespace HackerNews.Domain.Interfaces
 {
     public interface INewsService
     {
-        Task<IEnumerable<HackerNewsItem>> GetStories(int startId, int count);
+        Task<IEnumerable<HackerNewsItem>> GetStories(int? count);
     }
 }

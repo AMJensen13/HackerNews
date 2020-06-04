@@ -1,4 +1,4 @@
-﻿using HackerNews.Domain.Enums;
+﻿using HackerNews.Domain.Entities;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -6,6 +6,26 @@ namespace HackerNews.Domain.Models.HackerNews
 {
     public class HackerNewsItem
     {
+        public HackerNewsItem() { }
+
+        public HackerNewsItem(HackerNewsItemEntity item)
+        {
+            Id = int.Parse(item.id);
+            Score = item.Score;
+            CreatedDateUnix = item.CreatedDateUnix;
+            Title = item.Title;
+            By = item.By;
+            Text = item.Text;
+            Url = item.Url;
+            IsDead = item.IsDead;
+            IsDeleted = item.IsDeleted;
+            Type = item.Type;
+            Descendants = item.Descendants;
+            PollId = item.PollId;
+            PollOptsIds = item.PollOptsIds;
+            ParentId = item.ParentId;
+            KidsIds = item.KidsIds;
+        }
         /// <summary>
         /// The item's unique identifier
         /// </summary>

@@ -1,5 +1,6 @@
 using HackerNews.Data.Services;
 using HackerNews.Domain.Interfaces;
+using HackerNews.Domain.Models.CosmosDb;
 using HackerNews.Domain.Models.HackerNews;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,9 @@ namespace HackerNews
             });
 
             services.Configure<HackerNewsConfig>(Configuration.GetSection("HackerNewsConfig"));
+            services.Configure<CosmosDbConfig>(Configuration.GetSection("CosmosDb"));
             services.AddHttpClient<INewsService, HackerNewsService>();
+            services.AddSingleton<ICosmosDbService, CosmosDbService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

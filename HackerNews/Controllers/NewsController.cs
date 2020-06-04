@@ -14,9 +14,9 @@ namespace HackerNews.Controllers
             _newsService = newsService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery]int count)
         {
-             var stories = (await _newsService.GetStories(0, 20)).ToList();
+             var stories = (await _newsService.GetStories(count)).ToList();
 
             return Ok(new { stories, count = stories.Count()});
         }

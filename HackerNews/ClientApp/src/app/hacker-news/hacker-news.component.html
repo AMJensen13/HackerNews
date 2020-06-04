@@ -1,21 +1,12 @@
 <h1 id="tableLabel">Latest Stories</h1>
 
 <p *ngIf="!stories"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="stories">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let story of stories">
-      <td *ngIf="story.url"><a href="{{story.url}}" target="_blank">{{ story.title }}</a></td>
-      <td *ngIf="!story.url">{{ story.title }}</td>
-      <td>{{ story.by }}</td>
-    </tr>
-  </tbody>
-</table>
-
-
+<input *ngIf="stories" class="form-control" type="text" name="search" [(ngModel)]="filter">
+<ul *ngIf="stories" class="list-group list-group-flush">
+  <li *ngFor="let story of stories | filter:filter | paginate: { itemsPerPage: 10, currentPage: page }" class="list-group-item">
+      <a *ngIf="story.url" href="{{story.url}}" target="_blank">{{ story.title }}</a>
+      <span *ngIf="!story.url">{{ story.title }}</span> <br />
+      <em class="font-weight-lighter">{{story.time * 1000 | date: 'yyyy-MM-dd HH:mm'}} - {{story.by}}</em>
+  </li>
+</ul>
+<pagination-controls (pageChange)="page = $event"></pagination-controls>
