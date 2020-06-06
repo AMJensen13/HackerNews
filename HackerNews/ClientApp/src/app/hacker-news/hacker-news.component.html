@@ -1,0 +1,12 @@
+<h1 id="tableLabel">Latest Stories</h1>
+
+<img class="ml-auto" *ngIf="!stories" src="https://media.giphy.com/media/1hYIXcDMxEGw8/giphy.gif" />
+<input *ngIf="stories" class="form-control mb-1" type="text" name="search" [(ngModel)]="filter">
+<ul *ngIf="stories" class="list-group list-group-flush">
+  <li *ngFor="let story of stories | filter:filter | paginate: { itemsPerPage: 10, currentPage: page }" class="list-group-item">
+      <a *ngIf="story.url" href="{{story.url}}" target="_blank">{{ story.title }}</a>
+      <span *ngIf="!story.url">{{ story.title }}</span> <br />
+      <em class="font-weight-lighter">{{story.time * 1000 | date: 'yyyy-MM-dd HH:mm'}} - {{story.by}}</em>
+  </li>
+</ul>
+<pagination-controls (pageChange)="page = $event" maxSize="7" responsive="true"></pagination-controls>
