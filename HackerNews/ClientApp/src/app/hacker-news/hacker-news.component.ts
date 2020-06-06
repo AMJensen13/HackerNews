@@ -11,10 +11,10 @@ export class HackerNewsComponent {
   public page: number = 1;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<StoriesResponse>(baseUrl + 'News?count=25').subscribe(result => {
+    http.get<StoriesResponse>(baseUrl + 'Story?count=25').subscribe(result => {
       this.stories = result.stories;
 
-      http.get<StoriesResponse>(baseUrl + 'News?count=500').subscribe(result => {
+      http.get<StoriesResponse>(baseUrl + 'Story?count=500').subscribe(result => {
         let allStories = result.stories;
         allStories = allStories.filter((story) => this.stories.indexOf(story) < 0);
         allStories = allStories.concat(this.stories);
@@ -25,19 +25,19 @@ export class HackerNewsComponent {
         
         this.stories = _.sortedUniqBy(allStories, 'id');
       })
-      
+
     }, error => console.error(error));
 
     
   }
 }
 
-interface StoriesResponse {
+export interface StoriesResponse {
   stories: Story[];
   count: number;
 }
 
-interface Story {
+export interface Story {
   id: number;
   title: string;
   by: string;

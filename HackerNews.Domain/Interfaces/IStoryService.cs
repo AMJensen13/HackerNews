@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace HackerNews.Domain.Interfaces
 {
-    public interface INewsService
+    public interface IStoryService
     {
         Task<IEnumerable<HackerNewsItem>> GetStories(int? count);
     }

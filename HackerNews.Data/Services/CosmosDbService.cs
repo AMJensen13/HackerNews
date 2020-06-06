@@ -18,30 +18,10 @@ namespace HackerNews.Data.Services
 {
     public class CosmosDbService : ICosmosDbService
     {
-        private readonly CosmosDbConfig _config;
-        private readonly CosmosClient _client;
         private readonly Container _container;
-        public CosmosDbService(IOptions<CosmosDbConfig> _configOptions)
+        public CosmosDbService(Container container)
         {
-            _config = _configOptions.Value;
-
-            var clientBuilder = new CosmosClientBuilder(_config.ConnectionString);
-            _client = clientBuilder.WithConnectionModeDirect()
-                                   .Build();
-
-            var database = _client.GetDatabase(_config.DatabaseName);
-
-            if (database == null)
-            {
-                throw new CosmosDbException($"Database '{_config.DatabaseName}' does not exist.");
-            }
-
-            _container = database.GetContainer(_config.ContainerName);
-
-            if (_container == null)
-            {
-                throw new CosmosDbException($"Container '{_config.ContainerName}' does not exist.");
-            }
+            _container = container;
         }
 
         public async Task AddHackerNewsItem(HackerNewsItemEntity item)

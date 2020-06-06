@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HackerNews.Data.Services
 {
-    public class HackerNewsService : INewsService
+    public class HackerNewsService : IStoryService
     {
         private readonly ICosmosDbService _cosmosDbService;
         private readonly HttpClient _httpClient;

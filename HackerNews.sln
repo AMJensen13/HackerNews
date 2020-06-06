@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Domain", "Hacker
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Data", "HackerNews.Data\HackerNews.Data.csproj", "{1B3A57C1-405E-4107-8C9D-4AC23191578F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Tests", "HackerNews.Test\HackerNews.Tests.csproj", "{EFA0DBC0-20A6-4E07-94AD-3E26F2BE1540}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1B3A57C1-405E-4107-8C9D-4AC23191578F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3A57C1-405E-4107-8C9D-4AC23191578F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3A57C1-405E-4107-8C9D-4AC23191578F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA0DBC0-20A6-4E07-94AD-3E26F2BE1540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA0DBC0-20A6-4E07-94AD-3E26F2BE1540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA0DBC0-20A6-4E07-94AD-3E26F2BE1540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA0DBC0-20A6-4E07-94AD-3E26F2BE1540}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
